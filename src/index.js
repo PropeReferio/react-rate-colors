@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { createContext } from 'react';
+import { ColorProvider } from "./ColorProvider";
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+export const ColorContext = createContext();
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ColorProvider>
+      <App />
+    </ColorProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
