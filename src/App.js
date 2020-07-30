@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import colorData from "./data/color-data.json";
+import ColorList from './components/ColorList.js';
 import './App.css';
 
-function App() {
+export default function App() {
+  const [colors, setColors] = useState(colorData);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ColorList 
+      colors={colors}
+      onRateStar={(id, rating) => {
+        const newColors = colors.map(color =>
+          color.id === id ? { ...color, rating } : color
+          );
+          setColors(newColors);
+      }}
+      onRemoveColor={id => {
+        const newColors = colors.filter(color => color.id !== id);
+        setColors(newColors);  // Makes a copy of colors, using filter, that does not include
+        // the color with the ID of the color to be removed, and sets that as the state var colors.
+      }} 
+    />
   );
 }
-
-export default App;
